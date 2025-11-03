@@ -5,7 +5,7 @@
 React single-page pet adoption app featuring:
 
 * Dynamic client routing with **React Router v6**
-* **Component memoization** for performance
+* **Component memoization** and **lazy loading** for performance optimization
 * Nested and dynamic routes, with **query-aware search**
 * Fast, SEO-friendly navigation through clean, descriptive URLs
 * Optimized 404 handling with redirects
