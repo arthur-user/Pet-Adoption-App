@@ -7,13 +7,13 @@ const Hero = ({ image, displayText }) => {
     <div
       className="hero-container"
       style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.56), rgba(0,0,0,0.56)), url("${
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("${
           image || 'pets-hero.png'
         }")`,
         backgroundBlendMode: 'overlay', 
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundColor: '#0000008f',
+        backgroundColor: '#0000004d',
       }}
     >
       <h2>{displayText || getHeroTitle(type)}</h2>
