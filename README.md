@@ -10,7 +10,7 @@ React single-page pet adoption app featuring:
 * Fast, SEO-friendly navigation through clean, descriptive URLs
 * Optimized 404 handling with redirects
 
-**Live site:** [pet-adoption-pcbrtnrpm-art-users-projects.vercel.app](https://pet-adoption-3ixaadu7p-art-users-projects.vercel.app/) 
+**Live site:** https://pet-adoption-app-iota.vercel.app/
 
 ---
 
