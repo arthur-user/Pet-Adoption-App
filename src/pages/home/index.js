@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { getPets } from '../../api/petfinder';
 import Hero from '../../components/hero';
-
-// import useParams
-// import Link
 import { useParams, Link } from 'react-router-dom';
 
 const HomePage = () => {
   const [data, setData] = useState(null);
-  const { type } = useParams() //  :type segment means the URL can include any dynamic value after /
-
+  const { type } = useParams();
 
   useEffect(() => {
     async function getPetsData() {
@@ -35,30 +31,25 @@ const HomePage = () => {
       {data.length ? (
         <div className="grid">
           {data.map((animal) => (
-            <Link // Change me to a Link!
+            <Link
               key={animal.id}
               to={`/${animal.type.toLowerCase()}/${animal.id}`}
               className="pet"
             >
               <article>
                 <div className="pet-image-container">
-                  {
-                    <img
-                      className="pet-image"
-                      src={
-                        animal.photos[0]?.medium ||
-                        '/missing-animal.png'
-                      }
-                      alt=""
-                    />
-                  }
+                  <img
+                    className="pet-image"
+                    src={animal.image || '/missing-animal.png'}
+                    alt={animal.name}
+                  />
                 </div>
                 <h3>{animal.name}</h3>
-                <p>Breed: {animal.breeds.primary}</p>
-                <p>Color: {animal.colors.primary}</p>
+                <p>Breed: {animal.breed}</p>
+                <p>Location: {animal.location}</p>
                 <p>Gender: {animal.gender}</p>
               </article>
-            </Link> 
+            </Link>
           ))}
         </div>
       ) : (

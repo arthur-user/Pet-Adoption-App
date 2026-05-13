@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { getPetDetails } from "../../api/petfinder";
 import Hero from "../../components/hero";
-
-// Import useParams
 import { useParams, Navigate } from "react-router-dom";
-// Import Navigate
 
 const PetDetailsPage = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const { id } = useParams(); // object destructuring syntax used to get specific id
+  const { id } = useParams();
 
   useEffect(() => {
     async function getPetsData() {
       try {
-        const petsData = await getPetDetails(id);
+        const petsData = await getPetDetails(Number(id));
+        if (!petsData) throw new Error("Pet not found");
         setData(petsData);
         setError(false);
       } catch (e) {
@@ -27,42 +25,51 @@ const PetDetailsPage = () => {
     getPetsData();
   }, [id]);
 
+  if (loading) return <h3>Loading...</h3>;
+  if (error) return <Navigate to="/pet-details-not-found" />;
+
   return (
-    <div>
-      {loading ? (
-        <h3>Loading...</h3>
-      ) : error ? (
-        <div>
-          <Navigate to="/pet-details-not-found" />
-        </div>
-      ) : (
-        <main>
-          <Hero
-            image={data.photos[1]?.full || "https://i.imgur.com/aEcJUFK.png"}
-            displayText={`Meet ${data.name}`}
+    <main>
+      <Hero
+        image={data.image || "https://i.imgur.com/aEcJUFK.png"}
+        displayText={`Meet ${data.name}`}
+      />
+      <div className="pet-detail">
+        <div className="pet-image-container">
+          <img
+            className="pet-image"
+            src={data.image || "https://i.imgur.com/aEcJUFK.png"}
+            alt={data.name}
           />
-          <div className="pet-detail">
-            <div className="pet-image-container">
-              <img
-                className="pet-image"
-                src={
-                  data.photos[0]?.medium || "https://i.imgur.com/aEcJUFK.png"
-                }
-                alt=""
-              />
-            </div>
-            <div>
-              <h1>{data.name}</h1>
-              <h3>Breed: {data.breeds.primary}</h3>
-              <p>Color: {data.colors.primary || "Unknown"}</p>
-              <p>Gender: {data.gender}</p>
-              <h3>Description</h3>
-              <p>{data.description}</p>
-            </div>
-          </div>
-        </main>
-      )}
-    </div>
+        </div>
+        <div>
+          <h1>{data.name}</h1>
+          <h3>Breed: {data.breed}</h3>
+          <p>Gender: {data.gender}</p>
+          <p>Age: {data.age}</p>
+          <p>Size: {data.size}</p>
+          <p>Location: {data.location}</p>
+          <ul>
+            <li>Vaccinated: {data.vaccinated ? "Yes" : "No"}</li>
+            <li>House Trained: {data.houseTrained ? "Yes" : "No"}</li>
+            <li>
+              Good with Kids:{" "}
+              {data.goodWithKids === null ? "Unknown" : data.goodWithKids ? "Yes" : "No"}
+            </li>
+            <li>
+              Good with Dogs:{" "}
+              {data.goodWithDogs === null ? "Unknown" : data.goodWithDogs ? "Yes" : "No"}
+            </li>
+            <li>
+              Good with Cats:{" "}
+              {data.goodWithCats === null ? "Unknown" : data.goodWithCats ? "Yes" : "No"}
+            </li>
+          </ul>
+          <h3>Description</h3>
+          <p>{data.description || "No description available."}</p>
+        </div>
+      </div>
+    </main>
   );
 };
 

@@ -9,14 +9,14 @@ import { NavLink } from "react-router-dom";
 const Navigation = () => {
   const [petTypes, setPetTypes] = useState([]);
 
-  useEffect(() => {
-    async function getPetTypesData() {
-      const { types } = await getPetTypes();
-      setPetTypes(types);
-    }
+ useEffect(() => {
+  async function getPetTypesData() {
+    const types = await getPetTypes(); // no destructuring needed
+    setPetTypes(types);
+  }
 
-    getPetTypesData();
-  }, []);
+  getPetTypesData();
+}, []);
 
   return (
     <nav>
@@ -38,22 +38,21 @@ const Navigation = () => {
         </li>
         {petTypes
           ? petTypes.map((type) => (
-              <li key={type.name}>
+              <li key={type}>
                 {/* These links should be NavLink component and add a special active class name if its an active link */}
                 <NavLink
-                  to={`/${type._links.self.href.split("/").pop()}`}
-                  key={type.name}
-                  className={({ isActive }) =>
-                    `nav-link${isActive ? " nav-link-active" : ""}`
-                  }
+                  to={`/${type.toLowerCase()}`}
+      className={({ isActive }) =>
+        `nav-link${isActive ? " nav-link-active" : ""}`
+      }
                 >
-                  {type.name}s
+                  {type}s
                 </NavLink>{" "}
               </li>
             ))
           : "Loading..."}
 
-        <li ley="sign-up">
+        <li key="sign-up">
           <NavLink
             to="sign-up"
             className={({ isActive }) =>
