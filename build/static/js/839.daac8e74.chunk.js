@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkcute_pets_website=self.webpackChunkcute_pets_website||[]).push([[839],{599:function(e,t,i){i.r(t),i.d(t,{default:function(){return u}});i(791);var n=i.p+"static/media/dogNotFoundGif.eecf3df0e0ee4b861e2b.gif",s=i(184),u=function(){return(0,s.jsx)("img",{src:n,alt:"Lost dog animation"})}}}]);
-//# sourceMappingURL=839.daac8e74.chunk.js.map
