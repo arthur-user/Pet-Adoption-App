@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { pets } from './pets'; // adjust path as needed
+import { pets } from './pets'; 
 
 export const handlers = [
   rest.get('/types', (_req, res, ctx) => {
@@ -19,7 +19,9 @@ export const handlers = [
       response = response.filter(
         (pet) =>
           pet.name.toLowerCase().includes(query.toLowerCase()) ||
-          pet.location.toLowerCase().includes(query.toLowerCase())
+          pet.location.toLowerCase().includes(query.toLowerCase()) ||
+          pet.breed.toLowerCase().includes(query.toLowerCase()) ||
+          pet.type.toLowerCase().includes(query.toLowerCase()),
       );
     }
     return res(ctx.status(200), ctx.json(response));
